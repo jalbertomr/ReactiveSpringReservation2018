@@ -27,7 +27,7 @@ class SamplaDataInitializr {
 
 	@EventListener(ApplicationReadyEvent.class)
 	public void go() {
-
+        this.reservationRepository.deleteAll().subscribe();
 		Flux<String> nombres = Flux.just("Hugo","Paco","Luis","Daisy","McPato","Beto","Guille","Juan");
 		Flux<Reservation> reservations = nombres.map(nombre -> new Reservation( null, nombre));
 		Flux<Reservation> saved = reservations.flatMap(this.reservationRepository::save);
