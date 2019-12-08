@@ -12,6 +12,8 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 
+import java.util.function.Consumer;
+
 @SpringBootApplication
 public class ReservationServiceApplication {
 	public static void main(String[] args) {
@@ -31,7 +33,12 @@ class SamplaDataInitializr {
 		Flux<String> nombres = Flux.just("Hugo","Paco","Luis","Daisy","McPato","Beto","Guille","Juan");
 		Flux<Reservation> reservations = nombres.map(nombre -> new Reservation( null, nombre));
 		Flux<Reservation> saved = reservations.flatMap(this.reservationRepository::save);
-        saved.subscribe();
+        saved.subscribe(new Consumer<Reservation>() {
+            @Override
+            public void accept(Reservation reservation) {
+                log.info( reservation);
+            }
+        });
 	}
 }
 
