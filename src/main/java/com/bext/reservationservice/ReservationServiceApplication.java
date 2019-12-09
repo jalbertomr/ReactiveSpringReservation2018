@@ -39,6 +39,20 @@ class SamplaDataInitializr {
                 log.info( reservation);
             }
         });
+
+        reservations.subscribe(new Consumer<Reservation>() {
+			@Override
+			public void accept(Reservation reservation) {
+				log.info(reservation.getId());
+			}
+		});
+
+        nombres.subscribe(new Consumer<String>() {
+			@Override
+			public void accept(String s) {
+				log.info(s);
+			}
+		});
 	}
 }
 
